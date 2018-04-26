@@ -17,3 +17,12 @@
 # along with chmcpl.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+BIN_DIR = $(PWD)/bin
+SUB_DIR = src/lzx_compress
+
+export BIN_DIR
+
+all : BUILD_DIR
+
+BUILD_DIR : $(SUB_DIR)
+	make -C $^
