@@ -27,7 +27,7 @@
 
 #include <libconfig.h>
 
-#include <chmc.h>
+#include "chmc.h"
 
 #include "utils.h"
 #include "err.h"

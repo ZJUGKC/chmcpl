@@ -1,5 +1,4 @@
-<!--
-
+/*
   Copyright(C) 2018 Xin YUAN <yxxinyuan@zju.edu.cn>
 
   This file is part of chmcpl.
@@ -16,36 +15,8 @@
 
   You should have received a copy of the GNU General Public License
   along with chmcpl.  If not, see <http://www.gnu.org/licenses/>.
+*/
 
--->
+#define PACKAGE_STRING   "chmcpl 0.1"
 
-# chmcpl
-
-This project is a command-line chm compiler under *nix systems
-and is based on [Alex's work](https://sourceforge.net/projects/chmc/ "chmc").
-
-This project is not tested on Big-Endian machines.
-
-# Building
-
-Install the package `libconfig`:
-
-```
-sudo apt-get install libconfig-dev
-```
-
-Enter the project directory and execute:
-
-```
-make
-```
-
-The executable file `chmcpl` is in the `bin` directory.
-
-# Usage
-
-Use the following command to generate chm file:
-
-```
-chmcpl -c XXX.conf -o XXX.chm <source directory>
-```
+#define PACKAGE_VERSION  "0.1"
