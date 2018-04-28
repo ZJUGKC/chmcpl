@@ -922,7 +922,7 @@ int chmc_tree_done( struct chmcFile *chm )
 			p[2+24] = chmc_strings_add(chm, val);
 
 			if (chm->config != NULL && chm->config->hhk != NULL)
-				val = chm->config->hhc;
+				val = chm->config->hhk; //*****fix bug: org = hhc
 			else
 				val = "toc.hhk";
 			p[2+25] = chmc_strings_add(chm, val);
