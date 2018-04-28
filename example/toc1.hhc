@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
 <HTML>
 <HEAD>
-<meta name="GENERATOR" content="chmc">
+<meta name="GENERATOR" content="chmcpl">
 <!-- Sitemap 1.0 -->
 </HEAD>
 <BODY>
@@ -13,8 +13,19 @@
    <UL>
       <LI><OBJECT type="text/sitemap">
             <param name="Name" value="index">
-            <param name="Local" value="index.htm">
+            <param name="Local" value="index1.htm">
           </OBJECT>
+      <LI><OBJECT type="text/sitemap">
+            <param name="Name" value="barn">
+            <param name="Local" value="barn/barn.htm">
+			<param name="ImageNumber" value="1">
+          </OBJECT>
+	  <UL>
+		<LI><OBJECT type="text/sitemap">
+			  <param name="Name" value="data">
+              <param name="Local" value="barn/data.htm">
+            </OBJECT>
+	  </UL>
    </UL>
 </BODY>
 </HTML>

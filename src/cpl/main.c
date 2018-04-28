@@ -32,6 +32,10 @@
 #include "utils.h"
 #include "err.h"
 
+//---------------------------------------------------------------
+int chmc_add_tree(struct chmcFile *chm, const char *dir);
+//---------------------------------------------------------------
+
 static const char *short_name;
 static const char *output = "-";
 static const char *conf = NULL;

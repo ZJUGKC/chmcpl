@@ -91,6 +91,20 @@ int chmc_pmgi_add_entry(struct chmcFile *chm, const char *name, int pmgl_id);
 void chmc_pmgi_add(struct chmcFile *chm, struct chmcPmgiChunkNode *pmgi);
 void chmc_string_init(struct chmcStringChunk *node);
 
+//------------------------------------------------------------------
+UInt32 chmc_strings_add( struct chmcFile *chm, const char *s);
+int chmc_system_done(struct chmcFile *chm);
+int chmc_uncompressed_done(struct chmcFile *chm);
+void chmc_pmgl_done(struct chmcFile *chm);
+int chmc_write(struct chmcFile *chm);
+int chmc_appendfile(struct chmcFile *chm, const char *filename, void *buf,
+                size_t size );
+int chmc_pmgl_add_entry(struct chmcFile *chm, struct chmcTreeNode *entry);
+void chmc_pmgi_init(struct chmcPmgiChunkNode *node);
+struct chmcPmgiChunkNode *chmc_pmgi_create(void);
+int chmc_pmgi_done(struct chmcFile *chm);
+//------------------------------------------------------------------
+
 struct chmcLzxInfo
 {
 	struct chmcFile *chm;
@@ -678,14 +692,14 @@ struct chmcTreeNode *chmc_add_dir(struct chmcFile *chm, const char *dir)
 	return chmc_add_entry(chm, dir, 0, 0, NULL, 0, 0);
 }
 
-static inline void *chmc_syscat_mem(void *d, void *s, unsigned long len)
+static inline void *chmc_syscat_mem(void *d, const void *s, unsigned long len)
 {
 	memcpy(d, s, len);
 
 	return d + len;
 }
 
-static void *chmc_syscat_entry(Int16 code, void *d, void *s, Int16 len)
+static void *chmc_syscat_entry(Int16 code, void *d, const void *s, Int16 len)
 {
 	d = chmc_syscat_mem(d, &code, 2);
 	d = chmc_syscat_mem(d, &len, 2);
@@ -740,14 +754,14 @@ int chmc_system_done(struct chmcFile *chm)
 			entry_val = chm->config->deftopic;
 		else
 			entry_val = "index.htm";
-		p = chmc_syscat_entry(SIEC_DEFTOPIC, p, (void *)entry_val,
+		p = chmc_syscat_entry(SIEC_DEFTOPIC, p, (const void *)entry_val,
 		                      strlen(entry_val)+1);
 
 		if (chm->config != NULL && chm->config->title != NULL)
 			entry_val = chm->config->title;
 		else
 			entry_val = "untitled";
-		p = chmc_syscat_entry(SIEC_TITLE, p, (void *)entry_val,
+		p = chmc_syscat_entry(SIEC_TITLE, p, (const void *)entry_val,
 		                      strlen(entry_val)+1);
 		//       p = chmc_syscat_entry(SIEC_DEFFONT, p, &val, sizeof(val));
 		p = chmc_syscat_entry(SIEC_LCASEFILE, p, "siec_lcasefile",
