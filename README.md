@@ -72,3 +72,6 @@ chmcpl -c XXX.conf -o XXX.chm <source directory>
 | 1060 | Slovenian               | sl-SI        | ISO-8859-2  |
 | 1055 | Turkish                 | tr-TR        | ISO-8859-9  |
 | 1026 | Bulgarian               | bg-BG        | ISO-8859-5  |
+
+The config(`.conf`) file, `.hhc` file and `.hhk` file are encoded
+by the corresponding character sets.

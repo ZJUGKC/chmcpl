@@ -119,6 +119,15 @@ int main(int argc, char **argv)
 			      config_error_text(&config));
 		}
 
+		//-----------------------------------------------------------
+		setting = config_lookup(&config, "document.lcid");
+		if (setting) {
+			const char *val;
+			val = config_setting_get_string(setting);
+			if (val != NULL)
+				chm_conf.lcid = val;
+		}
+		//-----------------------------------------------------------
 		setting = config_lookup(&config, "document.title");
 		if (setting) {
 			const char *val;

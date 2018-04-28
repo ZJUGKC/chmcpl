@@ -177,6 +177,9 @@ struct chmcStringChunk {
 };
 
 struct chmcConfig {
+	//-------------------------------------------------------------
+	const char *lcid;
+	//-------------------------------------------------------------
 	const char *title;
 	const char *tmpdir;
 	const char *hhc;

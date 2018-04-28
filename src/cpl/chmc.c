@@ -104,6 +104,19 @@ void chmc_pmgi_init(struct chmcPmgiChunkNode *node);
 struct chmcPmgiChunkNode *chmc_pmgi_create(void);
 int chmc_pmgi_done(struct chmcFile *chm);
 //------------------------------------------------------------------
+UInt32 chmc_get_lcid(struct chmcFile *chm);
+
+UInt32 chmc_get_lcid(struct chmcFile *chm)
+{
+	UInt32 v;
+	if( strlen(chm->config->lcid) == 0 )
+		return CHMC_MS_LCID_EN_US;
+	v = strtoul(chm->config->lcid, NULL, 10);
+	if( errno != 0 ) //error
+		return CHMC_MS_LCID_EN_US;
+	return v;
+}
+//------------------------------------------------------------------
 
 struct chmcLzxInfo
 {
@@ -133,6 +146,10 @@ int chmc_init(struct chmcFile *chm, const char *filename,
 	struct chmcSystemInfo *sysinfo = &chm->system.info;
 	struct chmcIndexHeader *idxhdr = &chm->idxhdr;
 
+	//--------------------------------------------------------
+	UInt32 lcid_v;
+	//--------------------------------------------------------
+
 	assert(chm);
 	assert(filename);
 
@@ -152,12 +169,18 @@ int chmc_init(struct chmcFile *chm, const char *filename,
 		chm->fd = fileno(stdout);
 	}
 
+	//------------------------------------------------------
+	lcid_v = chmc_get_lcid(chm);
+	//------------------------------------------------------
+
 	memcpy(itsf->signature, "ITSF", 4);
 	itsf->version = 3;
 	itsf->header_len = _CHMC_ITSF_V3_LEN;
 	itsf->unknown_000c = 1;
 
-	itsf->lang_id = 0x409; // ENG/US
+	//------------------------------------------------------
+	itsf->lang_id = lcid_v;  //0x409; // ENG/US
+	//------------------------------------------------------
 	memcpy(itsf->dir_uuid, CHMC_DIR_UUID, 16);
 	memcpy(itsf->stream_uuid, CHMC_STREAM_UUID, 16);
 	itsf->dir_offset = _CHMC_ITSF_V3_LEN + _CHMC_SECT0_LEN;
@@ -180,7 +203,9 @@ int chmc_init(struct chmcFile *chm, const char *filename,
 	itsp->index_depth = 2;
 
 	itsp->unknown_0028 = -1;
-	itsp->lang_id = CHMC_MS_LCID_EN_US;
+	//------------------------------------------------------
+	itsp->lang_id = lcid_v;  //CHMC_MS_LCID_EN_US;
+	//------------------------------------------------------
 	memcpy(itsp->system_uuid, CHMC_SYSTEM_UUID, 16);
 	itsp->header_len2 = _CHMC_ITSP_V1_LEN;
 	memset(itsp->unknown_0048, -1, 12);
@@ -188,7 +213,9 @@ int chmc_init(struct chmcFile *chm, const char *filename,
 	system->version = 3;
 	system->_size = _CHMC_SYSTEM_HDR_LEN + sizeof(struct chmcIndexHeader);
 
-	sysinfo->lcid = CHMC_MS_LCID_EN_US;
+	//------------------------------------------------------
+	sysinfo->lcid = lcid_v;  //CHMC_MS_LCID_EN_US;
+	//------------------------------------------------------
 
 	memcpy(idxhdr->signature, "T#SM", 4);
 	idxhdr->unknown_4 = 28582569; // FIXME got from some chm
