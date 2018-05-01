@@ -215,6 +215,8 @@ int chmc_init(struct chmcFile *chm, const char *filename,
 
 	//------------------------------------------------------
 	sysinfo->lcid = lcid_v;  //CHMC_MS_LCID_EN_US;
+	//*** full_search
+	sysinfo->full_search = 1;
 	//------------------------------------------------------
 
 	memcpy(idxhdr->signature, "T#SM", 4);
@@ -790,6 +792,21 @@ int chmc_system_done(struct chmcFile *chm)
 			entry_val = "untitled";
 		p = chmc_syscat_entry(SIEC_TITLE, p, (const void *)entry_val,
 		                      strlen(entry_val)+1);
+		//-----------------------------------------------------------------
+		//*** HHC & HHK
+		if (chm->config != NULL && chm->config->hhc != NULL)
+			entry_val = chm->config->hhc;
+		else
+			entry_val = "toc.hhc";
+		p = chmc_syscat_entry(SIEC_SYS_HHC, p, (const void *)entry_val,
+		                      strlen(entry_val)+1);
+		if (chm->config != NULL && chm->config->hhk != NULL)
+			entry_val = chm->config->hhk;
+		else
+			entry_val = "toc.hhk";
+		p = chmc_syscat_entry(SIEC_SYS_HHK, p, (const void *)entry_val,
+		                      strlen(entry_val)+1);
+		//-----------------------------------------------------------------
 		//       p = chmc_syscat_entry(SIEC_DEFFONT, p, &val, sizeof(val));
 		p = chmc_syscat_entry(SIEC_LCASEFILE, p, "siec_lcasefile",
 		                      strlen("siec_lcasefile")+1);

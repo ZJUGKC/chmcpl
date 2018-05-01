@@ -7,6 +7,7 @@
 <BODY>
    <OBJECT type="text/site properties">
      <param name="Window Styles" value="0x800025">
+     <param name="ImageType" value="Folder">
      <param name="comment" value="title:">
      <param name="comment" value="base:">
    </OBJECT>

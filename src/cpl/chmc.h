@@ -80,6 +80,12 @@ struct chmcIndexHeader {
 #define SIEC_COMPVER 9
 #define SIEC_SYSINFO 4
 
+//--------------------------------------------------------
+//Add two types
+#define SIEC_SYS_HHC  (0)
+#define SIEC_SYS_HHK  (1)
+//--------------------------------------------------------
+
 /* NOTE use only as pointer */
 #define _CHMC_SYS_ENTRY_HDR_LEN (sizeof(UInt16)*2)
 struct chmcSystemEntry {
@@ -97,6 +103,12 @@ struct chmcSystemEntryNode {
 	struct chmcSystemEntry entry;
 };
 
+//-------------------------------------------------------
+//*** correct size : 0x24
+
+#pragma pack(push, 1)
+//-------------------------------------------------------
+
 /* HHA Version 4.72.7294 and earlier */
 #define _CHMC_SYS_INFO_V4_72_7294_LEN (28)
 /* HHA Version 4.72.8086 and later */
@@ -112,6 +124,9 @@ struct chmcSystemInfo {
 	UInt32 unknown_20; // >= 8086 only
 };
 
+//-------------------------------------------------------
+#pragma pack(pop)
+//-------------------------------------------------------
 
 /* /usr/include/freetype2/freetype/ttnameid.h maybe useful */
 #define CHMC_MS_LCID_EN_US (0x0409)
