@@ -25,7 +25,8 @@ CWARNFLAGS += -Wno-uninitialized
 COPTFLAGS = -O2
 CINCFLAGS = -I ../lzx_compress -I ../
 CFLAGS = $(COPTFLAGS) $(CWARNFLAGS) $(CINCFLAGS)
-LIBS = -lconfig -L $(LZX_A_DIR) -static -llzxcomp -lm
+LIB_FLAGS = -static
+LIBS = -lconfig -L $(LZX_A_DIR) $(LIB_FLAGS) -llzxcomp -lm
 
 all : $(BIN_DIR)/chmcpl
 
